@@ -1,0 +1,27 @@
+#+TITLE: Haskell development environment
+
+Setup steps:
+
+Create a new directory
+#+begin_src shell
+  mkdir /development/project
+#+end_src
+
+Copy =Dockerfile= and =docker-compose.yml= to your new directory
+#+begin_src shell
+  cp Dockerfile docker-compose.yml /development/project
+#+end_src
+
+Build the development container; the container name is =dev-env-haskell=.
+#+begin_src shell
+  cd /development/project
+  docker compose up -d --build
+#+end_src
+
+Wrap the tools you desire with shell scripts to invoke the tools
+within the container, for example to call =cabal= save the wrapper
+bellow in a folder listed within your =PATH= variable:
+#+begin_src shell
+  #!/usr/bin/env bash
+  docker exec -it haskell-dev cabal "$@"
+#+end_src
