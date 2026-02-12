@@ -19,7 +19,7 @@ Build the development container; the container name is =dev-env-haskell=.
 #+end_src
 
 Wrap the tools you desire with shell scripts to invoke the tools
-within the container, for example to call =cabal= save the wrapper
+within the container, for example to call [[https://www.haskell.org/cabal/][cabal]] save the wrapper
 bellow in a folder listed within your =PATH= variable:
 #+begin_src shell
   #!/usr/bin/env bash
