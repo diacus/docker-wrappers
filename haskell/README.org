@@ -1,27 +1,35 @@
 #+TITLE: Haskell development environment
 
-Setup steps:
+This project provides [[https://www.docker.com][Docker]] wrappers for Haskell tooling so you can
+develop with GHC, Cabal, and HLS inside Docker but edit files locally.
 
-Create a new directory
-#+begin_src shell
-  mkdir /development/project
-#+end_src
-
-Copy =Dockerfile= and =docker-compose.yml= to your new directory
-#+begin_src shell
-  cp Dockerfile docker-compose.yml /development/project
-#+end_src
-
-Build the development container; the container name is =dev-env-haskell=.
-#+begin_src shell
-  cd /development/project
-  docker compose up -d --build
-#+end_src
-
-Wrap the tools you desire with shell scripts to invoke the tools
-within the container, for example to call [[https://www.haskell.org/cabal/][cabal]] save the wrapper
-bellow in a folder listed within your =PATH= variable:
+* Prerequisites
+- Docker installed
+- Docker Compose v2
+- (Optional) basic shell knowledge
+  
+* Quick Start 
+1. Clone this repo
+2. Create a new project directory
+   #+begin_src shell
+     mkdir ~/dev/haskell/myproject
+   #+end_src
+3. Copy config files
+   #+begin_src shell
+     cp Dockerfile docker-compose.yml ~/dev/haskell/myproject
+   #+end_src
+4. Build and start the container
+   #+begin_src shell
+     cd ~/dev/haskell/myproject
+     docker compose up -d --build
+   #+end_src
+   
+* Usage
+Create shell wrappers in your =PATH=:
 #+begin_src shell
   #!/usr/bin/env bash
   docker exec -it haskell-dev cabal "$@"
 #+end_src
+
+Add similar wrappers for =ghc=, =hls=, etc.
+
