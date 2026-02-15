@@ -33,3 +33,11 @@ Create shell wrappers in your =PATH=:
 
 Add similar wrappers for =ghc=, =hls=, etc.
 
+* Environment Variables
+Set up the following environment variables
+#+begin_src shell
+  export PATH=$PWD/.local/bin:$PATH
+  export GROUP_ID=$(id -g)
+  export USER_ID=$(id -u)
+  export CONTAINER=YOUR-CONTAINER-NAME
+#+end_src
