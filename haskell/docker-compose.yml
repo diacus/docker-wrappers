@@ -3,10 +3,10 @@ services:
     build:
       context: .
       args:
-        UID: ${UID}
-        GID: ${GID}
+        UID: ${USER_ID}
+        GID: ${GROUP_ID}
         USERNAME: ${USER}
-    container_name: haskell-dev
+    container_name: ${CONTAINER}
     volumes:
       - .:/workspace
     working_dir: /workspace
