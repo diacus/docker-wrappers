@@ -1,5 +1,5 @@
 services:
-  haskell:
+  devbox:
     build:
       context: .
       args:
