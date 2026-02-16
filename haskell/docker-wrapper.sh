@@ -9,6 +9,11 @@ if [ -z "${SERVICE:-}" ]; then
   exit 1
 fi
 
+if ! docker compose config --services | grep -qx "$SERVICE"; then
+  echo "Service '$SERVICE' not found in docker-compose.yml."
+  exit 1
+fi
+
 # Check if service is running
 if ! docker compose ps --services --filter "status=running" | grep -qx "$SERVICE"; then
   echo "▶ Starting service $SERVICE..."
