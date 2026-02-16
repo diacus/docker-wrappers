@@ -1,8 +1,30 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+function find_compose_root() {
+    local dir="$PWD"
+
+    while [ "$dir" != "/" ]; do
+	if [ -f "$dir/docker-compose.yml" ]; then
+	    echo "$dir"
+	    return 0
+	fi
+	dir="$(dirname "$dir")"
+    done
+
+    return 1
+}
+
 # Determine invoked command name
 CMD="$(basename "$0")"
+
+# Find the project root
+PROJECT_ROOT="$(find_compose_root)" || {
+    echo "docker-compose.yml not found in the current directory or any parent." >/dev/stderr
+    exit 1
+}
+
+cd "$PROJECT_ROOT"
 
 if [ -z "${SERVICE:-}" ]; then
   echo "SERVICE variable is not set."
