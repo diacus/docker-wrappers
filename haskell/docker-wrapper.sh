@@ -2,8 +2,16 @@
 set -euo pipefail
 
 function find_compose_root() {
-    local dir="$PWD"
+    # First attempt: use git repository root if available
+    if git_root=$(git rev-parse --show-toplevel 2>/dev/null); then
+	if [ -f "$git_root/docker-compose.yml" ]; then
+	    echo "$git_root"
+	    return 0
+	fi
+    fi
 
+    # Fallback: walk up directory tree
+    local dir="$PWD"
     while [ "$dir" != "/" ]; do
 	if [ -f "$dir/docker-compose.yml" ]; then
 	    echo "$dir"
